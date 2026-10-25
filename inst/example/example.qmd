@@ -1,3 +1,9 @@
+---
+format:
+  html:
+    embed-resources: true
+---
+
 # My example document
 
 ```{r include=FALSE}

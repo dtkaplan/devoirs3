@@ -1,3 +1,58 @@
+#' Define choices in a Quarto YAML chunk
+#'
+#' `devoirs_choices` is a knitr chunk engine for declaring a question's answer
+#' choices as YAML in a Quarto document. The chunk does not print output; its
+#' label must be a valid R variable name and is used to store the parsed choices
+#' in the knitting environment. Pass that variable to
+#' [devoirs_selection()]'s `answers` argument.
+#'
+#' @name devoirs_choices
+#' @details
+#' The YAML root must be a non-empty sequence. Each sequence item is either a
+#' non-empty string (an incorrect choice with default feedback) or a mapping
+#' whose key is the choice text and whose optional fields are `correct` and
+#' `feedback`. Quote choice text used as a mapping key so YAML treats it as
+#' text, not as a boolean, number, or other special value.
+#'
+#' `correct` must be a YAML boolean and defaults to `false`. `feedback` must be
+#' a string; if omitted, it defaults to `Correct!` for a correct choice and
+#' `Sorry.` otherwise. Unknown fields, empty choice text, and malformed YAML
+#' produce an error that identifies the chunk or choice.
+#'
+#' ````qmd
+#' ```{r include=FALSE}
+#' library(devoirs3)
+#' devoirs_start(docID = "geography")
+#' ```
+#'
+#' ```{devoirs_choices}
+#' #| label: capitalChoices
+#' - "Paris":
+#'     correct: true
+#'     feedback: Correct!
+#' - "Lyon":
+#'     feedback: Not the capital.
+#' - "Marseille"
+#' ```
+#'
+#' ```{r}
+#' capital <- devoirs_selection(
+#'   label = "capital-question",
+#'   question = "Which city is the capital of France?",
+#'   answers = capitalChoices
+#' )
+#' ```
+#'
+#' `r capital()`
+#' ````
+#'
+#' `capital` is a render function; place it in the document with an inline
+#' expression such as `` `r capital()` ``. Choice order is preserved. A
+#' `devoirs_selection()` question accepts at most 676 choices.
+#'
+#' @seealso [devoirs_selection()]
+NULL
+
 .devoirs3_choice_error <- function(label, message, index = NULL) {
   location <- if (is.null(index)) {
     sprintf("{devoirs_choices} chunk '%s'", label)

@@ -59,7 +59,8 @@
 #' @param label A non-empty ID unique among question elements in the document.
 #' @param question The human-readable prompt and accessible group name.
 #' @param answers A non-empty list of records with `text`, `correct`, and
-#'   optional `feedback` fields.
+#'   optional `feedback` fields. These can be declared in a
+#'   [devoirs_choices] chunk.
 #' @param multiple If `TRUE`, allow one or more choices; otherwise allow one.
 #'
 #' @return A function that renders the question in Quarto output.

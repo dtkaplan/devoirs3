@@ -12,7 +12,8 @@ devoirs_selection(label, question, answers, multiple = FALSE)
 \item{question}{The human-readable prompt and accessible group name.}
 
 \item{answers}{A non-empty list of records with \code{text}, \code{correct}, and
-optional \code{feedback} fields.}
+optional \code{feedback} fields. These can be declared in a
+\link{devoirs_choices} chunk.}
 
 \item{multiple}{If \code{TRUE}, allow one or more choices; otherwise allow one.}
 }
