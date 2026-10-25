@@ -1,0 +1,65 @@
+* using log directory ‘/Users/kaplan/Packages/devoirs3/devoirs3.Rcheck’
+* using R version 4.4.3 (2025-02-28)
+* using platform: aarch64-apple-darwin20
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS 26.6.2
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘devoirs3/DESCRIPTION’ ... OK
+* this is package ‘devoirs3’ version ‘0.0.0.9000’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘devoirs3’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking for missing documentation entries ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... ERROR
+  Running ‘testthat.R’
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  > test_check("devoirs3")
+  Saving _problems/test-quarto-smoke-20.R
+  [ FAIL 1 | WARN 1 | SKIP 0 | PASS 2 ]
+  
+  ══ Failed tests ════════════════════════════════════════════════════════════════
+  ── Error ('test-quarto-smoke.R:20:5'): a minimal Quarto document renders with the package installed ──
+  Error in `eval(code, test_env)`: Warning: unknown option ‘--library’
+  Warning: invalid package ‘/var/folders/f9/4blnmypn52s4d63c4nblphpw0000gq/T//Rtmp4YotqQ/devoirs3-lib-a1caa90ccf5’
+  Warning: invalid package ‘/Users/kaplan/Packages/devoirs3/devoirs3.Rcheck’
+  Error: ERROR: no packages specified
+  
+  [ FAIL 1 | WARN 1 | SKIP 0 | PASS 2 ]
+  Error:
+  ! Test failures.
+  Execution halted
+* DONE
+Status: 1 ERROR

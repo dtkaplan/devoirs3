@@ -1,0 +1,19 @@
+Package: devoirs3
+Title: Self-Contained Quarto Assignments
+Version: 0.0.0.9000
+Authors@R:
+    person("Daniel", "Kaplan", email = "dtkaplan@gmail.com", role = c("aut", "cre"))
+Description: Create self-contained HTML assignments for course instructors to
+    distribute questions and collect student responses without a back-end
+    service.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    htmltools,
+    knitr,
+    yaml
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

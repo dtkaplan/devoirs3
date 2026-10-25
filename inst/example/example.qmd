@@ -1,0 +1,82 @@
+# My example document
+
+```{r include=FALSE}
+library(devoirs3)
+```
+
+```{r}
+#| echo: false
+devoirs3::devoirs_start(docID="wednesday", feedback=TRUE, collector=TRUE)
+```
+
+Consider a few planets and satellites. 
+
+```{r}
+#| echo: false
+# When only one answer is correct, use radio buttons.
+Q1 <- devoirs_selection(
+  label = "D10-satellite",
+  question = "Which one is a satellite?",
+  answers = list(
+    list(text = "Mars $a \\equiv b$", correct = FALSE,
+      feedback = "Sorry, it's a satellite of the Sun."),
+    list(text = "Earth", correct = FALSE,
+      feedback = "We live here. $\\int_0^1 \\pi dx$"),
+    list(text = "Sun", correct = FALSE,
+      feedback = "Bright, but not right!"),
+    list(text = "Moon", correct = TRUE,
+      feedback = "Right! Not big enough to be a planet.")
+  )
+)
+```
+
+
+```{r}
+#| echo: false
+# When multiple answers are correct, use checkboxes.
+Q2 <- devoirs_selection(
+  label = "D10-planets",
+  question = "Which one(s) are planets?",
+  multiple = TRUE,
+  answers = list(
+    list(text = "Mars", correct = TRUE,
+      feedback = "Good!"),
+    list(text = "Earth", correct = TRUE,
+      feedback = "Our favorite planet. $\\pi r^2$"),
+    list(text = "Sun", correct = FALSE,
+      feedback = "Bright, but not right!"),
+    list(text = "Moon", correct = FALSE,
+      feedback = "Some people think it should be promoted.")
+  )
+)
+```
+
+A. Which one is a satellite? `r Q1(inline=TRUE, feedback=FALSE)`
+
+B. Which one(s) are planets? `r Q2(inline=TRUE)`
+
+C. Would you like to live on the Moon? Explain in detail why or why not.
+
+`r devoirs_text(label = "D10-moon-live", question = "Would you like to live on the Moon? Explain why or why not.", height=5, width=80)`
+
+```{devoirs_choices}
+#| label: forQ4
+- "Yes":
+    correct: TRUE
+    feedback: Good choice!
+- "No":
+    correct: FALSE
+    feedback: Too bad.
+```
+
+```{r}
+#| echo: false
+Q4 <- devoirs_selection(label="D10-Q4", 
+      question = "Is this the right thing to do?",
+      answers = forQ4)
+```
+
+
+D. Is this the right thing to do? `r Q4(inline=FALSE)`
+
+Thanks for participating!

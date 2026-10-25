@@ -1,0 +1,12 @@
+---
+title: "devoirs3 Quarto smoke test"
+format: html
+execute:
+  echo: false
+---
+
+```{r}
+library(devoirs3)
+stopifnot(devoirs3:::rolling_hash("abc") == 2946)
+cat("DEVOIRS3_SMOKE_OK")
+```

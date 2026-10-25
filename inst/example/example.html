@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>example</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="example_files/libs/clipboard/clipboard.min.js"></script>
+<script src="example_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="example_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="example_files/libs/quarto-html/popper.min.js"></script>
+<script src="example_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="example_files/libs/quarto-html/anchor.min.js"></script>
+<link href="example_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="example_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="example_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="example_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="example_files/libs/bootstrap/bootstrap-917079515d91bccb85b543faf8aa8bb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="my-example-document" class="level1">
+<h1>My example document</h1>
+<p>Consider a few planets and satellites.</p>
+A. Which one is a satellite?
+<script data-devoirs3-css=".devoirs3-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.devoirs3-feedback {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid #8aaed0;
+  color: #15558a;
+  background-color: #f1f7fc;
+}
+
+.devoirs3-selection-widget:not(.devoirs3-selection-inline) .devoirs3-choice {
+  display: block;
+}
+
+.devoirs3-selection-inline .devoirs3-choice {
+  margin-right: 2em;
+}
+
+.devoirs3-label {
+  color: #666;
+  font-style: italic;
+}
+
+.devoirs3-clear-button {
+  padding: 0.1rem 0.3rem;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  color: #222;
+  background-color: #eee;
+  font-size: 6pt;
+}
+
+.devoirs3-clear-button:focus-visible {
+  outline: 2px solid #15558a;
+  outline-offset: 2px;
+}
+
+.devoirs3-collector {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #8aaed0;
+  background-color: #f1f7fc;
+}
+
+.devoirs3-collector-button {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #15558a;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #15558a;
+  font: inherit;
+  font-weight: 600;
+}
+
+.devoirs3-collector-button:focus-visible,
+.devoirs3-collector-fallback:focus-visible,
+.devoirs3-label-toggle input:focus-visible {
+  outline: 2px solid #15558a;
+  outline-offset: 2px;
+}
+
+.devoirs3-label-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.devoirs3-collector-fallback {
+  box-sizing: border-box;
+  flex-basis: 100%;
+  max-width: 100%;
+  resize: both;
+}" data-devoirs3-collector="true" data-devoirs3-labels="true">const style = document.createElement('style');
+style.textContent = document.currentScript.dataset.devoirs3Css;
+document.head.appendChild(style);
+(() => {
+  "use strict";
+
+  const collectorEnabled = document.currentScript.dataset.devoirs3Collector === "true";
+  const labelsEnabled = document.currentScript.dataset.devoirs3Labels === "true";
+  const stateByWidget = new WeakMap();
+  const storagePrefix = "devoirs3:v1:";
+
+  function widgetFor(target) {
+    return target.closest('[data-devoirs3-widget]');
+  }
+
+  function inputFor(widget) {
+    return widget.querySelector("[data-devoirs3-input]");
+  }
+
+  function isSelection(widget) {
+    return widget.dataset.devoirs3Widget === "selection";
+  }
+
+  function selectionInputs(widget) {
+    return Array.from(widget.querySelectorAll("[data-devoirs3-option]"));
+  }
+
+  function normalizeMathDelimiters(text) {
+    return text
+      .replace(/(^|[^\\])\$\$([\s\S]+?)\$\$(?!\$)/g, "$1\\[$2\\]")
+      .replace(/(^|[^\\])\$([^$\n]+?)\$(?!\$)/g, "$1\\($2\\)");
+  }
+
+  function setFeedback(feedback, text) {
+    const mathJax = window.MathJax;
+    if (mathJax && typeof mathJax.typesetClear === "function") {
+      mathJax.typesetClear([feedback]);
+    }
+    feedback.textContent = normalizeMathDelimiters(text);
+    feedback.hidden = !text;
+    if (!text || !mathJax || typeof mathJax.typesetPromise !== "function") return;
+
+    const typeset = () => mathJax.typesetPromise([feedback]);
+    const ready = mathJax.startup && mathJax.startup.promise
+      ? mathJax.startup.promise.then(typeset)
+      : typeset();
+    if (ready && typeof ready.catch === "function") ready.catch(() => {});
+  }
+
+  function storageKey(widget) {
+    return storagePrefix + encodeURIComponent(widget.dataset.docid) + ":" +
+      encodeURIComponent(widget.dataset.label);
+  }
+
+  function createSubmission() {
+    const widgets = Array.from(document.querySelectorAll("[data-devoirs3-widget]"));
+    const docID = widgets[0]?.dataset.docid || "";
+    const responses = [];
+
+    widgets.forEach((widget) => {
+      if (isSelection(widget)) {
+        const value = selectionInputs(widget)
+          .filter((input) => input.checked)
+          .map((input) => input.dataset.optionId);
+        if (value.length) {
+          responses.push({ label: widget.dataset.label, type: "selection", value });
+        }
+        return;
+      }
+
+      const value = inputFor(widget).value.replace(/\r\n?/g, "\n");
+      if (!value.length) return;
+      const state = stateByWidget.get(widget);
+      const activeMs = state.activeSince !== null && !document.hidden
+        ? performance.now() - state.activeSince
+        : 0;
+      const duration = Math.round(state.elapsed + activeMs) / 1000;
+      responses.push({ label: widget.dataset.label, type: "text", value, duration });
+    });
+
+    return {
+      schemaVersion: 1,
+      docID,
+      collectedAt: new Date().toISOString(),
+      responses
+    };
+  }
+
+  function initializeCollector() {
+    if ((!collectorEnabled && !labelsEnabled) || document.querySelector("[data-devoirs3-collector-ui]")) return;
+
+    const toolbar = document.createElement("div");
+    toolbar.className = "devoirs3-collector";
+    toolbar.dataset.devoirs3CollectorUi = "";
+
+    if (collectorEnabled) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "devoirs3-collector-button";
+      button.textContent = "Copy answers";
+
+      const status = document.createElement("span");
+      status.className = "devoirs3-collector-status";
+      status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
+
+      const fallback = document.createElement("textarea");
+      fallback.className = "devoirs3-collector-fallback";
+      fallback.setAttribute("aria-label", "Collected answers");
+      fallback.readOnly = true;
+      fallback.rows = 1;
+      fallback.hidden = true;
+
+      button.addEventListener("click", async () => {
+        const submission = JSON.stringify(createSubmission());
+        try {
+          if (!navigator.clipboard || typeof navigator.clipboard.writeText !== "function") {
+            throw new Error("Clipboard API unavailable");
+          }
+          await navigator.clipboard.writeText(submission);
+          fallback.hidden = true;
+          status.textContent = "Answers copied.";
+        } catch (_) {
+          fallback.value = submission;
+          fallback.hidden = false;
+          status.textContent = "Clipboard unavailable. Copy the answers below.";
+          fallback.focus();
+          fallback.select();
+        }
+      });
+
+      toolbar.append(button, status, fallback);
+    }
+
+    if (labelsEnabled) {
+      const labelToggle = document.createElement("label");
+      labelToggle.className = "devoirs3-label-toggle";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.addEventListener("change", () => {
+        document.querySelectorAll("[data-devoirs3-label]").forEach((label) => {
+          label.hidden = !checkbox.checked;
+        });
+      });
+      labelToggle.append(checkbox, document.createTextNode("Labels?"));
+      toolbar.append(labelToggle);
+    }
+
+    document.body.prepend(toolbar);
+  }
+
+  function save(widget) {
+    if (isSelection(widget)) {
+      const selected = selectionInputs(widget)
+        .filter((input) => input.checked)
+        .map((input) => input.dataset.optionId);
+      try {
+        if (selected.length) {
+          localStorage.setItem(storageKey(widget), JSON.stringify({ value: selected }));
+        } else {
+          localStorage.removeItem(storageKey(widget));
+        }
+      } catch (_) {
+        // The widget remains usable when browser storage is unavailable.
+      }
+      return;
+    }
+    const input = inputFor(widget);
+    const state = stateByWidget.get(widget);
+    let duration = state.elapsed;
+    if (state.activeSince !== null && !document.hidden) {
+      duration += performance.now() - state.activeSince;
+    }
+    try {
+      localStorage.setItem(storageKey(widget), JSON.stringify({
+        value: input.value,
+        durationMs: duration
+      }));
+    } catch (_) {
+      // The widget remains usable when browser storage is unavailable.
+    }
+  }
+
+  function pause(widget) {
+    const state = stateByWidget.get(widget);
+    if (state.activeSince === null) return;
+    state.elapsed += performance.now() - state.activeSince;
+    state.activeSince = null;
+    save(widget);
+  }
+
+  function resume(widget) {
+    const state = stateByWidget.get(widget);
+    if (!document.hidden && state.activeSince === null) {
+      state.activeSince = performance.now();
+    }
+  }
+
+  function initialize(root = document) {
+    root.querySelectorAll("[data-devoirs3-widget]").forEach((widget) => {
+      if (stateByWidget.has(widget)) return;
+      if (isSelection(widget)) {
+        let saved = null;
+        try {
+          saved = JSON.parse(localStorage.getItem(storageKey(widget)) || "null");
+        } catch (_) {
+          saved = null;
+        }
+        if (saved && Array.isArray(saved.value)) {
+          const selected = new Set(saved.value);
+          selectionInputs(widget).forEach((input) => {
+            input.checked = selected.has(input.dataset.optionId);
+          });
+        }
+        stateByWidget.set(widget, {});
+        return;
+      }
+      const input = inputFor(widget);
+      let saved = null;
+      try {
+        saved = JSON.parse(localStorage.getItem(storageKey(widget)) || "null");
+      } catch (_) {
+        saved = null;
+      }
+      const durationMs = saved && Number.isFinite(saved.durationMs)
+        ? Math.max(0, saved.durationMs)
+        : 0;
+      stateByWidget.set(widget, { elapsed: durationMs, activeSince: null });
+      if (saved && typeof saved.value === "string") input.value = saved.value;
+    });
+    if (root === document) initializeCollector();
+  }
+
+  function initializeWhenReady() {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => initialize(), { once: true });
+    } else {
+      initialize();
+    }
+  }
+
+  document.addEventListener("input", (event) => {
+    if (!event.target.matches("[data-devoirs3-input]")) return;
+    const widget = widgetFor(event.target);
+    if (widget) save(widget);
+  });
+
+  document.addEventListener("change", (event) => {
+    if (!event.target.matches("[data-devoirs3-option]")) return;
+    const widget = widgetFor(event.target);
+    if (!widget) return;
+    save(widget);
+    const feedback = widget.querySelector("[data-devoirs3-feedback]");
+    if (widget.dataset.feedbackEnabled === "true") {
+      const feedbackText = widget.dataset.multiple === "true" && !event.target.checked
+        ? ""
+        : event.target.dataset.feedback || "";
+      setFeedback(feedback, feedbackText);
+    }
+  });
+
+  document.addEventListener("focusin", (event) => {
+    if (!event.target.matches("[data-devoirs3-input]")) return;
+    const widget = widgetFor(event.target);
+    if (widget) resume(widget);
+  });
+
+  document.addEventListener("focusout", (event) => {
+    if (!event.target.matches("[data-devoirs3-input]")) return;
+    const widget = widgetFor(event.target);
+    if (widget) pause(widget);
+  });
+
+  document.addEventListener("click", (event) => {
+    const selectionButton = event.target.closest("[data-devoirs3-clear-selection]");
+    if (selectionButton) {
+      const selectionWidget = widgetFor(selectionButton);
+      if (!selectionWidget) return;
+      selectionInputs(selectionWidget).forEach((input) => {
+        input.checked = false;
+      });
+      const feedback = selectionWidget.querySelector("[data-devoirs3-feedback]");
+      setFeedback(feedback, "");
+      try {
+        localStorage.removeItem(storageKey(selectionWidget));
+      } catch (_) {
+        // Clearing the visible choices still works without browser storage.
+      }
+      return;
+    }
+    const button = event.target.closest("[data-devoirs3-clear]");
+    if (!button) return;
+    const widget = widgetFor(button);
+    if (!widget) return;
+    const state = stateByWidget.get(widget);
+    state.elapsed = 0;
+    state.activeSince = null;
+    inputFor(widget).value = "";
+    try {
+      localStorage.removeItem(storageKey(widget));
+    } catch (_) {
+      // Clearing the visible field still works without browser storage.
+    }
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    document.querySelectorAll('[data-devoirs3-widget="text"]').forEach((widget) => {
+      if (document.hidden) {
+        pause(widget);
+      } else if (inputFor(widget) === document.activeElement) {
+        resume(widget);
+      }
+    });
+  });
+
+  window.addEventListener("pagehide", () => {
+    document.querySelectorAll('[data-devoirs3-widget="text"]').forEach(pause);
+  });
+
+  initializeWhenReady();
+})();</script>
+<p><span class="devoirs3-selection-widget devoirs3-selection-inline" role="group" aria-label="Which one is a satellite?" data-devoirs3-widget="selection" data-docid="wednesday" data-label="D10-satellite" data-feedback-enabled="false" data-multiple="false"> <span class="devoirs3-visually-hidden">Which one is a satellite?</span> <label class="devoirs3-choice"> <input type="radio" name="devoirs3-selection-4431302d736174656c6c697465" id="devoirs3-selection-4431302d736174656c6c697465-1" value="AAuzreh" data-devoirs3-option="" data-option-id="AAuzreh" data-feedback="Sorry, it's a satellite of the Sun."> <span>Mars <span class="math inline">\(a \equiv b\)</span></span> </label> <label class="devoirs3-choice"> <input type="radio" name="devoirs3-selection-4431302d736174656c6c697465" id="devoirs3-selection-4431302d736174656c6c697465-2" value="BApicce" data-devoirs3-option="" data-option-id="BApicce" data-feedback="We live here. $\int_0^1 \pi dx$"> <span>Earth</span> </label> <label class="devoirs3-choice"> <input type="radio" name="devoirs3-selection-4431302d736174656c6c697465" id="devoirs3-selection-4431302d736174656c6c697465-3" value="CAcnlxv" data-devoirs3-option="" data-option-id="CAcnlxv" data-feedback="Bright, but not right!"> <span>Sun</span> </label> <label class="devoirs3-choice"> <input type="radio" name="devoirs3-selection-4431302d736174656c6c697465" id="devoirs3-selection-4431302d736174656c6c697465-4" value="DAhdrut" data-devoirs3-option="" data-option-id="DAhdrut" data-feedback="Right! Not big enough to be a planet."> <span>Moon</span> </label> <span class="devoirs3-feedback" role="status" aria-live="polite" aria-atomic="true" data-devoirs3-feedback="" hidden="TRUE"></span> <button type="button" class="devoirs3-clear-button" data-devoirs3-clear-selection="" aria-label="Clear answer for Which one is a satellite?">Clear</button> <span class="devoirs3-label" data-devoirs3-label="" hidden="TRUE">D10-satellite</span> </span></p>
+<p>B. Which one(s) are planets? <span class="devoirs3-selection-widget devoirs3-selection-inline" role="group" aria-label="Which one(s) are planets?" data-devoirs3-widget="selection" data-docid="wednesday" data-label="D10-planets" data-feedback-enabled="true" data-multiple="true"> <span class="devoirs3-visually-hidden">Which one(s) are planets?</span> <label class="devoirs3-choice"> <input type="checkbox" name="devoirs3-selection-4431302d706c616e657473" id="devoirs3-selection-4431302d706c616e657473-1" value="AAwtgov" data-devoirs3-option="" data-option-id="AAwtgov" data-feedback="Good!"> <span>Mars</span> </label> <label class="devoirs3-choice"> <input type="checkbox" name="devoirs3-selection-4431302d706c616e657473" id="devoirs3-selection-4431302d706c616e657473-2" value="BAfyrir" data-devoirs3-option="" data-option-id="BAfyrir" data-feedback="Our favorite planet. $\pi r^2$"> <span>Earth</span> </label> <label class="devoirs3-choice"> <input type="checkbox" name="devoirs3-selection-4431302d706c616e657473" id="devoirs3-selection-4431302d706c616e657473-3" value="CArxhkb" data-devoirs3-option="" data-option-id="CArxhkb" data-feedback="Bright, but not right!"> <span>Sun</span> </label> <label class="devoirs3-choice"> <input type="checkbox" name="devoirs3-selection-4431302d706c616e657473" id="devoirs3-selection-4431302d706c616e657473-4" value="DAdeotv" data-devoirs3-option="" data-option-id="DAdeotv" data-feedback="Some people think it should be promoted."> <span>Moon</span> </label> <span class="devoirs3-feedback" role="status" aria-live="polite" aria-atomic="true" data-devoirs3-feedback="" hidden="TRUE"></span> <button type="button" class="devoirs3-clear-button" data-devoirs3-clear-selection="" aria-label="Clear answer for Which one(s) are planets?">Clear</button> <span class="devoirs3-label" data-devoirs3-label="" hidden="TRUE">D10-planets</span> </span></p>
+<p>C. Would you like to live on the Moon? Explain in detail why or why not.</p>
+<div class="devoirs3-text-widget" data-devoirs3-widget="text" data-docid="wednesday" data-label="D10-moon-live">
+<label class="devoirs3-visually-hidden" for="devoirs3-text-4431302d6d6f6f6e2d6c697665">Would you like to live on the Moon? Explain why or why not.</label>
+<textarea id="devoirs3-text-4431302d6d6f6f6e2d6c697665" class="devoirs3-text-input" rows="5" cols="80" placeholder="" data-devoirs3-input=""></textarea>
+<p><button type="button" class="devoirs3-clear-button" data-devoirs3-clear="" aria-label="Clear answer for Would you like to live on the Moon? Explain why or why not.">Clear</button> <span class="devoirs3-label" data-devoirs3-label="" hidden="TRUE">D10-moon-live</span></p>
+</div>
+D. Is this the right thing to do?
+<fieldset class="devoirs3-selection-widget" data-devoirs3-widget="selection" data-docid="wednesday" data-label="D10-Q4" data-feedback-enabled="true" data-multiple="false">
+<legend class="devoirs3-visually-hidden">Is this the right thing to do?</legend> <label class="devoirs3-choice"> <input type="radio" name="devoirs3-selection-4431302d5134" id="devoirs3-selection-4431302d5134-1" value="AAewmby" data-devoirs3-option="" data-option-id="AAewmby" data-feedback="Good choice!"> <span>Yes</span> </label> <label class="devoirs3-choice"> <input type="radio" name="devoirs3-selection-4431302d5134" id="devoirs3-selection-4431302d5134-2" value="BAmvcxh" data-devoirs3-option="" data-option-id="BAmvcxh" data-feedback="Too bad."> <span>No</span> </label>
+<div class="devoirs3-feedback" role="status" aria-live="polite" aria-atomic="true" data-devoirs3-feedback="" hidden="TRUE">
+
+</div>
+<button type="button" class="devoirs3-clear-button" data-devoirs3-clear-selection="" aria-label="Clear answer for Is this the right thing to do?">
+Clear
+</button>
+<span class="devoirs3-label" data-devoirs3-label="" hidden="TRUE">D10-Q4</span>
+</fieldset>
+<p>Thanks for participating!</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

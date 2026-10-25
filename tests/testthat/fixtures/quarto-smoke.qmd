@@ -1,0 +1,42 @@
+---
+title: "devoirs3 Quarto smoke test"
+format: html
+execute:
+  echo: false
+---
+
+```{r include=FALSE}
+library(devoirs3)
+devoirs_start("quarto-smoke", feedback = FALSE)
+```
+
+Please explain your answer.
+
+`r devoirs_text(label = "response", question = "Explain your answer", placeholder = "Your response", width = 32, height = 4)`
+
+```{devoirs_choices}
+#| label: smokeChoices
+- "TRUE":
+  correct: true
+  feedback: "Fantastic!"
+- "False"
+```
+
+```{r}
+choice <- devoirs_selection(
+  label = "choice",
+  question = "Choose one",
+  answers = list(list(text = "A", correct = TRUE, feedback = "Correct: $x^2$"))
+)
+```
+
+`r choice(feedback = TRUE)`
+
+```{r}
+stopifnot(devoirs3:::rolling_hash("abc") == 2946)
+stopifnot(identical(smokeChoices, list(
+  list(text = "TRUE", correct = TRUE, feedback = "Fantastic!"),
+  list(text = "False", correct = FALSE, feedback = "Sorry.")
+)))
+cat("DEVOIRS3_SMOKE_OK\nDEVOIRS3_CHOICES_OK")
+```
