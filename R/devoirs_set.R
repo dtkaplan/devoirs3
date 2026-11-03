@@ -7,8 +7,6 @@
 #' @param sort logical value. Force sorting on character strings. (Numerical choices are sorted by default.)
 #' @param inline logical value. Place the items in an inline format.
 #' @export
-devoirs_set <-
-
 devoirs_set3 <- function(
     choices = 1:5,
     correct = 3,
