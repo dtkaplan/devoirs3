@@ -1,2 +1,4 @@
 ^design-spec\.md$
 ^devoirs3\.Rcheck$
+^.*\.Rproj$
+^\.Rproj\.user$

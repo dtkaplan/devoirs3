@@ -406,11 +406,11 @@ Q1 <- devoirs_selection(
 
 3. **Construct an example .qmd file (complete):** in the inst/example directory. Pull it from the example document in design-spec.md.
 
-4. **Implement `devoirs_text()` end to end:** including markup, persistence, reset, and focused tests. Agree on the HTML attributes/IDs that the JavaScript will rely on.
+4. **Implement `devoirs_text()` end to end (complete):** including markup, persistence, reset, and focused tests. Agree on the HTML attributes/IDs that the JavaScript will rely on.
 
 5. **Implement `devoirs_start()`(complete):** 
 
-6. **Implement `devoirs_selection()`:**
+6. **Implement `devoirs_selection()`(complete):**
 
 7. **Implement the `devoirs_choices` chunk engine (complete):** parse YAML choice data, normalize it to the `devoirs_selection()` answer contract, and assign it to the document environment.
 
