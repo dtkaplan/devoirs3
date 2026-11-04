@@ -10,7 +10,8 @@ devoirs_set3(
   n = 5,
   label = NULL,
   sort = is.numeric(correct),
-  inline = TRUE
+  inline = TRUE,
+  feedback = NULL
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ devoirs_set3(
 \item{sort}{logical value. Force sorting on character strings. (Numerical choices are sorted by default.)}
 
 \item{inline}{logical value. Place the items in an inline format.}
+
+\item{feedback}{Whether to display feedback. \code{NULL} inherits the current
+mode set by \code{\link[=feedback_mode]{feedback_mode()}} or \code{\link[=devoirs_start]{devoirs_start()}}.}
 }
 \description{
 Compact inline generation of fixed selection question elements

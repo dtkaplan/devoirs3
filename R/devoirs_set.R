@@ -6,6 +6,8 @@
 #' @param label character string. File-unique id for this problem.
 #' @param sort logical value. Force sorting on character strings. (Numerical choices are sorted by default.)
 #' @param inline logical value. Place the items in an inline format.
+#' @param feedback Whether to display feedback. `NULL` inherits the current
+#'   mode set by [feedback_mode()] or [devoirs_start()].
 #' @export
 devoirs_set3 <- function(
     choices = 1:5,
@@ -13,7 +15,8 @@ devoirs_set3 <- function(
     n = 5,
     label = NULL,
     sort = is.numeric(correct),
-    inline = TRUE
+    inline = TRUE,
+    feedback = NULL
 ) {
   if (!is.atomic(choices) || !is.null(dim(choices)) || anyNA(choices)) {
     stop("choices must be a non-missing atomic vector", call. = FALSE)
@@ -65,5 +68,5 @@ devoirs_set3 <- function(
     answers = answers,
     multiple = length(correct) > 1L
   )
-  render_selection(inline = inline)
+  render_selection(inline = inline, feedback = feedback)
 }

@@ -75,6 +75,28 @@ devoirs_start <- function(docID, feedback = TRUE, collector = TRUE, labels = TRU
   invisible(NULL)
 }
 
+#' Get or set the document feedback mode
+#'
+#' The mode applies to selection widgets rendered after it is set. Calling
+#' [devoirs_start()] resets it to that function's `feedback` argument.
+#'
+#' @param arg Optional `TRUE` or `FALSE` value to set the mode. If omitted,
+#'   return the current mode.
+#'
+#' @return The current mode. A value returned after setting is invisible.
+#' @export
+feedback_mode <- function(arg) {
+  if (missing(arg)) {
+    return(.devoirs3_state$feedback_default)
+  }
+  if (!is.logical(arg) || length(arg) != 1L || is.na(arg)) {
+    stop("`arg` must be TRUE or FALSE.", call. = FALSE)
+  }
+
+  .devoirs3_state$feedback_default <- arg
+  invisible(arg)
+}
+
 #' Create a persistent free-text question
 #'
 #' Returns accessible HTML for a text-entry question. Call

@@ -418,4 +418,16 @@ Q1 <- devoirs_selection(
 
 9. **Finish integration and documentation:** test a rendered Quarto HTML file in a browser, including keyboard and screen-reader behavior, reload persistence, duplicate labels, and the collection-site workflow.
 
+## Displaying feedback
+
+Question elements of the selection kind can display feedback upon the choice of a selection. Currently, the feedback display is turned on or off, globally, by the `feedback=` argument to `devoirs_start()`. 
+
+The function `devoirs_selection()` creates a render function with a `feedback=` argument that governs whether the display of feedback for the widget created when the render function is invoked. 
+
+1. Modify the `devoirs3::devoirs_set3()` function to have an additional argument, `feedback` that by default inherits the global feedback mode created by `devoirs_start()` but which can be invoked by the author to override that default. `devoirs3::devoirs_set3(..., feedback = TRUE)` should turn on the display of feedback regardless of the setting established by `devoirs_start()`.
+
+2. Provide a function, `devoirs3::feedback_mode(arg)` whose argument turns the global feedback mode on or off depending on whether `arg` is TRUE or FALSE. This might be used one or more times in the middle of a qmd document to change the feedback behavior for the successive question elements. If used without an argument, the function merely returns the current feedback mode.
+
+ 
+
 

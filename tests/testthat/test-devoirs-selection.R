@@ -40,6 +40,32 @@ test_that("multiple selection questions render checkboxes and inherit feedback",
   expect_match(widget, "<div class=\"devoirs3-feedback\"", fixed = TRUE)
 })
 
+test_that("feedback mode is inherited and can be overridden for set3 questions", {
+  devoirs3::devoirs_start("feedback-mode", feedback = FALSE)
+  expect_false(devoirs3::feedback_mode())
+
+  enabled <- as.character(devoirs3::devoirs_set3(
+    choices = 1:2, correct = 1, n = 2, label = "set3-enabled", feedback = TRUE
+  ))
+  inherited_off <- as.character(devoirs3::devoirs_set3(
+    choices = 1:2, correct = 1, n = 2, label = "set3-inherited-off"
+  ))
+  expect_match(enabled, "data-feedback-enabled=\"true\"", fixed = TRUE)
+  expect_match(inherited_off, "data-feedback-enabled=\"false\"", fixed = TRUE)
+
+  expect_invisible(devoirs3::feedback_mode(TRUE))
+  expect_true(devoirs3::feedback_mode())
+  inherited_on <- as.character(devoirs3::devoirs_set3(
+    choices = 1:2, correct = 1, n = 2, label = "set3-inherited-on"
+  ))
+  expect_match(inherited_on, "data-feedback-enabled=\"true\"", fixed = TRUE)
+
+  devoirs3::devoirs_start("feedback-mode-reset", feedback = FALSE)
+  expect_false(devoirs3::feedback_mode())
+  expect_error(devoirs3::feedback_mode(NA), "`arg` must be TRUE or FALSE")
+  expect_error(devoirs3::feedback_mode(1), "`arg` must be TRUE or FALSE")
+})
+
 test_that("block selection prompts remain accessible without duplicating visible prose", {
   devoirs3::devoirs_start("block-selection")
   render <- devoirs3::devoirs_selection(

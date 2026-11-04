@@ -57,7 +57,9 @@ Q2 <- devoirs_selection(
 )
 ```
 
-A. Which one is a satellite? `r Q1(inline=TRUE, feedback=FALSE)`
+`r devoirs3::feedback_mode(FALSE)`
+
+A. Which one is a satellite? `r Q1(inline=TRUE, feedback=TRUE)`
 
 B. Which one(s) are planets? `r Q2(inline=TRUE)`
 
