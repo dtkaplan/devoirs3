@@ -292,7 +292,8 @@
     const state = stateByWidget.get(widget);
     state.elapsed = 0;
     state.activeSince = null;
-    inputFor(widget).value = "";
+    const input = inputFor(widget);
+    input.value = input.defaultValue;
     try {
       localStorage.removeItem(storageKey(widget));
     } catch (_) {

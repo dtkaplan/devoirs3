@@ -5,7 +5,8 @@ execute:
   echo: false
 ---
 
-```{r include=FALSE}
+```{r}
+#| echo: false
 library(devoirs3)
 devoirs_start("quarto-smoke", feedback = FALSE)
 ```
@@ -31,6 +32,8 @@ choice <- devoirs_selection(
 ```
 
 `r choice(feedback = TRUE)`
+
+A sentence `r devoirs_TF(correct = TRUE, label = "inline-tf", format = "Wilbur or Arthur")` continues here.
 
 ```{r}
 stopifnot(devoirs3:::rolling_hash("abc") == 2946)

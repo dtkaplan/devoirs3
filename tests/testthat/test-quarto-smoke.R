@@ -58,6 +58,7 @@ test_that("a minimal Quarto document renders with the package installed", {
   expect_match(rendered_html, "data-label=\"response\"", fixed = TRUE)
   expect_match(rendered_html, "data-devoirs3-widget=\"selection\"", fixed = TRUE)
   expect_match(rendered_html, "data-label=\"choice\"", fixed = TRUE)
+  expect_match(rendered_html, ">inline-tf</span> </span> continues here\\.")
   expect_match(rendered_html, "data-feedback-enabled=\"true\"", fixed = TRUE)
   expect_match(rendered_html, "data-devoirs3-collector=\"true\"", fixed = TRUE)
   expect_match(rendered_html, "data-devoirs3-labels=\"true\"", fixed = TRUE)

@@ -15,6 +15,13 @@ library(devoirs3)
 devoirs3::devoirs_start(docID="wednesday", feedback=TRUE, collector=TRUE)
 ```
 
+
+Trying out some true or false questions:
+
+1. Do you think it is `r devoirs3::devoirs_TF(correct=FALSE, label="freddy", format="right or wrong?")` 
+
+2. `r devoirs3::devoirs_TF(correct=TRUE, label="friendly", format="Wilbur or Arthur")` will be going to the store.
+
 Consider a few planets and satellites. 
 
 ```{r}
@@ -65,7 +72,7 @@ B. Which one(s) are planets? `r Q2(inline=TRUE)`
 
 C. Would you like to live on the Moon? Explain in detail why or why not.
 
-`r devoirs_text(label = "D10-moon-live", question = "Would you like to live on the Moon? Explain why or why not.", height=5, width=80)`
+`r devoirs_text(label = "D10-moon-live", question = "Would you like to live on the Moon? Explain why or why not.", contents="Look up\n\nthen down.",height=5, width=80)`
 
 ```{devoirs_choices}
 #| label: forQ4

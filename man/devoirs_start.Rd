@@ -16,9 +16,10 @@ devoirs_start(docID, feedback = TRUE, collector = TRUE, labels = TRUE)
 \item{labels}{Whether to add the labels visibility checkbox.}
 }
 \value{
-Invisibly returns \code{NULL}.
+HTML containing the shared browser behavior.
 }
 \description{
-Registers the shared browser behavior and starts a new render-time label
-registry. Call this once near the beginning of a Quarto document.
+Emits the shared browser behavior and starts a new render-time label
+registry. Call this once in a visible, non-inline Quarto code chunk near the
+beginning of the document; set \code{echo = FALSE} to suppress the source code.
 }

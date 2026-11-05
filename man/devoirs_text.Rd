@@ -6,11 +6,12 @@
 \usage{
 devoirs_text(
   label,
-  question,
+  question = "Text editor box.",
   placeholder = "",
   width = 40L,
   height = 3L,
-  inline = FALSE
+  inline = FALSE,
+  contents = ""
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ accessible name.}
 \item{height}{Number of rows for the text area.}
 
 \item{inline}{If \code{TRUE}, place the controls in an inline wrapper.}
+
+\item{contents}{Initial editor contents as a single character string. Defaults to empty.}
 }
 \value{
 HTML suitable for an inline or block Quarto expression.

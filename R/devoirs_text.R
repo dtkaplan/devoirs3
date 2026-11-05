@@ -42,15 +42,16 @@
 
 #' Initialize a devoirs3 document
 #'
-#' Registers the shared browser behavior and starts a new render-time label
-#' registry. Call this once near the beginning of a Quarto document.
+#' Emits the shared browser behavior and starts a new render-time label
+#' registry. Call this once in a visible, non-inline Quarto code chunk near the
+#' beginning of the document; set `echo = FALSE` to suppress the source code.
 #'
 #' @param docID A non-empty ID unique to the assignment on its hosting origin.
 #' @param feedback Whether selection feedback is enabled by default.
 #' @param collector Whether to add the answer collection button.
 #' @param labels Whether to add the labels visibility checkbox.
 #'
-#' @return Invisibly returns `NULL`.
+#' @return HTML containing the shared browser behavior.
 #' @export
 devoirs_start <- function(docID, feedback = TRUE, collector = TRUE, labels = TRUE) {
   if (!is.character(docID) || length(docID) != 1L || is.na(docID) || !nzchar(docID)) {
@@ -72,7 +73,9 @@ devoirs_start <- function(docID, feedback = TRUE, collector = TRUE, labels = TRU
   .devoirs3_state$feedback_default <- feedback
   .devoirs3_state$collector <- collector
   .devoirs3_state$labels_enabled <- labels
-  invisible(NULL)
+  assets <- .devoirs3_assets_markup()
+  .devoirs3_state$assets_emitted <- TRUE
+  knitr::asis_output(assets)
 }
 
 #' Get or set the document feedback mode
@@ -109,11 +112,12 @@ feedback_mode <- function(arg) {
 #' @param width Number of columns for the text area.
 #' @param height Number of rows for the text area.
 #' @param inline If `TRUE`, place the controls in an inline wrapper.
+#' @param contents Initial editor contents as a single character string. Defaults to empty.
 #'
 #' @return HTML suitable for an inline or block Quarto expression.
 #' @export
-devoirs_text <- function(label, question, placeholder = "", width = 40L,
-                         height = 3L, inline = FALSE) {
+devoirs_text <- function(label, question = "Text editor box.", placeholder = "", width = 40L,
+                         height = 3L, inline = FALSE, contents = "") {
   if (is.null(.devoirs3_state$doc_id)) {
     stop("Call `devoirs_start()` before creating question elements.", call. = FALSE)
   }
@@ -128,6 +132,9 @@ devoirs_text <- function(label, question, placeholder = "", width = 40L,
   }
   if (!is.character(placeholder) || length(placeholder) != 1L || is.na(placeholder)) {
     stop("`placeholder` must be a single character string.", call. = FALSE)
+  }
+  if (!is.character(contents) || length(contents) != 1L || is.na(contents)) {
+    stop("`contents` must be a single character string.", call. = FALSE)
   }
   if (!is.numeric(width) || length(width) != 1L || is.na(width) || width < 1 || width != as.integer(width)) {
     stop("`width` must be a positive whole number.", call. = FALSE)
@@ -158,7 +165,8 @@ devoirs_text <- function(label, question, placeholder = "", width = 40L,
       rows = as.integer(height),
       cols = as.integer(width),
       placeholder = placeholder,
-      `data-devoirs3-input` = ""
+      `data-devoirs3-input` = "",
+      contents
     ),
     htmltools::tags$button(
       type = "button",

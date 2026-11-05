@@ -20,6 +20,18 @@ test_that("text question emits accessible, escaped markup", {
   expect_match(widget, "Clear answer for Explain &lt;why&gt; &amp; how", fixed = TRUE)
 })
 
+test_that("text question renders escaped initial contents", {
+  devoirs3::devoirs_start("text-contents")
+  widget <- as.character(devoirs3::devoirs_text(
+    label = "prefilled",
+    question = "Review this answer",
+    contents = "<draft> & notes"
+  ))
+
+  expect_match(widget, "&lt;draft&gt; &amp; notes", fixed = TRUE)
+  expect_false(grepl("<draft>", widget, fixed = TRUE))
+})
+
 test_that("text question labels are unique within a render", {
   devoirs3::devoirs_start("duplicate-test")
   devoirs3::devoirs_text("same-label", "First prompt")
@@ -34,6 +46,8 @@ test_that("text question arguments are validated", {
   devoirs3::devoirs_start("argument-test")
 
   expect_error(devoirs3::devoirs_text("", "Prompt"), "label")
+  expect_error(devoirs3::devoirs_text("q0", "Prompt", contents = NA_character_), "`contents`")
+  expect_error(devoirs3::devoirs_text("q3", "Prompt", contents = c("one", "two")), "`contents`")
   expect_error(devoirs3::devoirs_text("q1", "Prompt", width = 0), "width")
   expect_error(devoirs3::devoirs_text("q2", "Prompt", height = 1.5), "height")
 })

@@ -40,7 +40,8 @@ The package will provide a set of R functions with names like `devoirs_selection
 ````{verbatim}
 # My example document
 
-```{r include=FALSE}
+```{r}
+#| echo: false
 library(devoirs3)
 devoirs3::devoirs_start(docID="wednesday", feedback=TRUE, collector=TRUE)
 ```
@@ -428,6 +429,36 @@ The function `devoirs_selection()` creates a render function with a `feedback=` 
 
 2. Provide a function, `devoirs3::feedback_mode(arg)` whose argument turns the global feedback mode on or off depending on whether `arg` is TRUE or FALSE. This might be used one or more times in the middle of a qmd document to change the feedback behavior for the successive question elements. If used without an argument, the function merely returns the current feedback mode.
 
- 
+## Modifications Nov 4
+
+1. I have already added a new argument to `devoirs_text()` named `contents=`. This will contain a character string. If not empty, the unquoted character string should be placed as the initial contents of the editing box, as if the student had typed them herself. Those contents should not contribute to the "duration" counter. 
+    - For collection purposes, treat the `contents=` material as if the student had typed it.  
+    - The reset button should restore the source-provided text. 
+
+2. Add a new function `devoirs3::devoirs_TF()`. This will be similar to `devoirs3::devoirs_set3()` in that a typical use in the qmd source file will be an inline chunk. 
+    - `devoirs_TF()` creates a "true or false" question, meaning a question with two choices.
+    - Arguments:
+        i. `correct=` either TRUE or FALSE. No default.
+        ii. `label=` a character string as in `devoirs_selection()`
+        iii. `format=` a character string such as "True or False" or "Yes or No". This will be used to establish the labels on the radio buttons. Default value: "True or False?"
+        iv. `wrong_hint=` A character string giving the feedback when the student selects the incorrect answer. Default value: "Sorry"
+        v. `right_hint=` Like `wrong_hint=`, but this is the character string to use as feedback when the student selects the correct answer. Default value: "Nice!"
+        vi. `feedback=` default value `NULL`. If a TRUE or a FALSE value is given, will override the global feedback option set by `devoirs_start()`. 
+    - The question will always be rendered as a pair of radio buttons in a <span>. The first of the buttons will have by default the label "True", the second will have the label "False." 
+    - The `format=` string should contain words as in "Yes or No.". The first word will become the label for the first radio button, the last word will become the label for the second radio button. The middle word(s), if any, will used for the "or" label between radio buttons. If there is no ending punctuation in the format string, provide none after the second radio button. Otherwise, use the specified punctuation (which is period in the "Yes or No." example.)
+    - "Ending punctuation" can be any of the set [? ! . , ] or blank.
+    - The "reset" button will be placed following the punctuation-mark position.
+    - The `correct=` argument specifies which of the radio buttons is deemed to be the correct answer. If TRUE, the first radio button is correct, otherwise the second radio button is correct.
+    - The format string, followed by the literal word "question", will be used for the accessible question name, as in "Yes or no question"
+    - Spaces will be used as the separators between words in the `format` argument, as well as an optional ending punctuation character.
+    - The `right_hint=` and `wrong_hint=` arguments specify, respectively, what feedback is to be given for the correct choice and the other choice.
+    - The individual radio buttons will have IDs using the same system as established in `devoirs_selection()` to signify in the HTML contents whether the button is correct or incorrect. Collection of student answers will happen in the same way as for question elements created by `devoirs_selection()`.
+    - Use the same feedback, reset, and collection behavior as with elements created with `devoirs_selection()`.
+    - The layout will always be in-line, as a <span> The author should be able to use it as part of a sentence, as in the example given in the following 
+
+    ```
+    1. Do you think it is `r devoirs_TF(correct=FALSE, label="freddy", format="right or wrong?")` 
+    2. `r devoirs_TF(correct=TRUE, label="friendly", format="Wilbur or Arthur")` will be going to the store.
+    ```
 
 

@@ -1,5 +1,5 @@
 test_that("selection questions render accessible native controls", {
-  devoirs3::devoirs_start("selection-unit")
+  startup <- as.character(devoirs3::devoirs_start("selection-unit"))
   render <- devoirs3::devoirs_selection(
     label = "q1",
     question = "Choose <one> & only one",
@@ -20,8 +20,8 @@ test_that("selection questions render accessible native controls", {
   expect_match(widget, "<span class=\"devoirs3-feedback\"", fixed = TRUE)
   expect_match(widget, "data-devoirs3-clear-selection", fixed = TRUE)
   expect_match(widget, "data-feedback=\"Correct!\"", fixed = TRUE)
-  expect_match(widget, "font-size: 6pt", fixed = TRUE)
-  expect_match(widget, "background-color: #f1f7fc", fixed = TRUE)
+  expect_match(startup, "font-size: 6pt", fixed = TRUE)
+  expect_match(startup, "background-color: #f1f7fc", fixed = TRUE)
 })
 
 test_that("multiple selection questions render checkboxes and inherit feedback", {
@@ -82,7 +82,7 @@ test_that("the collector setting is validated and included in the script", {
   expect_error(devoirs3::devoirs_start("invalid-collector", collector = NA), "`collector`")
   expect_error(devoirs3::devoirs_start("invalid-labels", labels = NA), "`labels`")
 
-  devoirs3::devoirs_start("collector-disabled", collector = FALSE, labels = FALSE)
+  startup <- as.character(devoirs3::devoirs_start("collector-disabled", collector = FALSE, labels = FALSE))
   render <- devoirs3::devoirs_selection(
     label = "question",
     question = "Choose one",
@@ -90,17 +90,17 @@ test_that("the collector setting is validated and included in the script", {
   )
   widget <- as.character(render())
 
-  expect_match(widget, "data-devoirs3-collector=\"false\"", fixed = TRUE)
-  expect_match(widget, "data-devoirs3-labels=\"false\"", fixed = TRUE)
+  expect_match(startup, "data-devoirs3-collector=\"false\"", fixed = TRUE)
+  expect_match(startup, "data-devoirs3-labels=\"false\"", fixed = TRUE)
 
-  devoirs3::devoirs_start("labels-only", collector = FALSE, labels = TRUE)
+  startup <- as.character(devoirs3::devoirs_start("labels-only", collector = FALSE, labels = TRUE))
   labels_only <- as.character(devoirs3::devoirs_selection(
     label = "question",
     question = "Choose one",
     answers = list(list(text = "A", correct = TRUE))
   )())
-  expect_match(labels_only, "data-devoirs3-collector=\"false\"", fixed = TRUE)
-  expect_match(labels_only, "data-devoirs3-labels=\"true\"", fixed = TRUE)
+  expect_match(startup, "data-devoirs3-collector=\"false\"", fixed = TRUE)
+  expect_match(startup, "data-devoirs3-labels=\"true\"", fixed = TRUE)
 })
 
 test_that("option IDs encode position and correctness without changing RNG state", {
@@ -151,4 +151,41 @@ test_that("selection arguments are validated", {
   expect_error(devoirs3::devoirs_selection("q", "Prompt", rep(list(list(text = "A", correct = TRUE)), 677)), "between 1 and 676")
   expect_error(devoirs3::devoirs_selection("q", "Prompt", list(list(text = "A", correct = 1))), "logical `correct`")
   expect_error(devoirs3::devoirs_selection("q", "Prompt", list(list(text = "A", correct = TRUE)), multiple = NA), "`multiple`")
+})
+
+test_that("true-or-false questions render inline selection behavior", {
+  devoirs3::devoirs_start("tf-render", feedback = FALSE)
+  widget <- as.character(devoirs3::devoirs_TF(
+    correct = FALSE,
+    label = "tf-question",
+    format = "right or wrong?",
+    wrong_hint = "Try <again>",
+    right_hint = "Good & right",
+    feedback = TRUE
+  ))
+
+  expect_match(widget, "<span class=\"devoirs3-selection-widget devoirs3-selection-inline\"", fixed = TRUE)
+  expect_match(widget, "aria-label=\"right or wrong question\"", fixed = TRUE)
+  expect_match(widget, "type=\"radio\"", fixed = TRUE)
+  expect_length(regmatches(widget, gregexpr("type=\"radio\"", widget, fixed = TRUE))[[1L]], 2L)
+  expect_match(widget, "</label>\\s+or\\s+<label")
+  expect_match(widget, "\\?\\s+<span class=\"devoirs3-feedback\"")
+  expect_match(widget, "data-feedback-enabled=\"true\"", fixed = TRUE)
+  expect_match(widget, "data-feedback=\"Try &lt;again&gt;\"", fixed = TRUE)
+  expect_match(widget, "data-feedback=\"Good &amp; right\"", fixed = TRUE)
+  expect_match(widget, "data-devoirs3-clear-selection", fixed = TRUE)
+  expect_match(widget, "data-devoirs3-widget=\"selection\"", fixed = TRUE)
+})
+
+test_that("true-or-false questions share label uniqueness and validate arguments", {
+  devoirs3::devoirs_start("tf-validation")
+  devoirs3::devoirs_text("shared-label", "Text prompt")
+
+  expect_error(devoirs3::devoirs_TF(TRUE, "shared-label"), "duplicated")
+  expect_error(devoirs3::devoirs_TF(1, "q"), "`correct`")
+  expect_error(devoirs3::devoirs_TF(TRUE, ""), "`label`")
+  expect_error(devoirs3::devoirs_TF(TRUE, "q", format = "True"), "at least two words")
+  expect_error(devoirs3::devoirs_TF(TRUE, "q", format = "True\tor False"), "use spaces")
+  expect_error(devoirs3::devoirs_TF(TRUE, "q", wrong_hint = NA_character_), "`wrong_hint`")
+  expect_error(devoirs3::devoirs_TF(TRUE, "q", feedback = 1), "`feedback`")
 })
