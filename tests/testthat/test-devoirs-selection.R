@@ -24,6 +24,42 @@ test_that("selection questions render accessible native controls", {
   expect_match(startup, "background-color: #f1f7fc", fixed = TRUE)
 })
 
+test_that("selection choice labels render inline Markdown and math safely", {
+  devoirs3::devoirs_start("selection-markdown")
+  widget <- as.character(devoirs3::devoirs_selection(
+    label = "marked-up",
+    question = "Choose one",
+    answers = list(
+      list(text = "*emphasized* and **strong**", correct = TRUE),
+      list(text = "$x^2$", correct = FALSE),
+      list(text = "$\\pi$", correct = FALSE),
+      list(text = "<script>alert(1)</script>", correct = FALSE)
+    )
+  )())
+
+  expect_match(widget, "<em>emphasized</em> and <strong>strong</strong>", fixed = TRUE)
+  expect_match(widget, "class=\"math inline\">&#92;(x^2&#92;)", fixed = TRUE)
+  expect_match(widget, "class=\"math inline\">&#92;(&#92;pi&#92;)", fixed = TRUE)
+  expect_match(widget, "&lt;script&gt;alert(1)&lt;/script&gt;", fixed = TRUE)
+  expect_false(grepl("<script>", widget, fixed = TRUE))
+})
+
+test_that("selection feedback renders inline Markdown and math safely", {
+  devoirs3::devoirs_start("selection-feedback-markdown")
+  widget <- as.character(devoirs3::devoirs_selection(
+    label = "feedback-markup",
+    question = "Choose one",
+    answers = list(
+      list(text = "Yes", correct = TRUE, feedback = "**Correct!** and $x^2$"),
+      list(text = "No", correct = FALSE, feedback = "<script>alert(1)</script>")
+    )
+  )())
+
+  expect_match(widget, "data-feedback-html=\"&lt;strong&gt;Correct!&lt;/strong&gt;", fixed = TRUE)
+  expect_match(widget, "&lt;span class=&quot;math inline&quot;&gt;&amp;#92;(x^2&amp;#92;)", fixed = TRUE)
+  expect_false(grepl("<script>", widget, fixed = TRUE))
+})
+
 test_that("multiple selection questions render checkboxes and inherit feedback", {
   devoirs3::devoirs_start("multiple-unit", feedback = FALSE)
   render <- devoirs3::devoirs_selection(

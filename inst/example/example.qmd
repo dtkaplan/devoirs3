@@ -74,11 +74,13 @@ C. Would you like to live on the Moon? Explain in detail why or why not.
 
 `r devoirs_text(label = "D10-moon-live", question = "Would you like to live on the Moon? Explain why or why not.", contents="Look up\n\nthen down.",height=5, width=80)`
 
+`r devoirs3::feedback_mode(TRUE)`
+
 ```{devoirs_choices}
 #| label: forQ4
-- "Yes":
+- "Yes so long as M^2^ works as does $\\pi$":
     correct: TRUE
-    feedback: Good choice!
+    feedback: Good choice. Both M^2^ and $\pi$ work!
 - "No":
     correct: FALSE
     feedback: Too bad.

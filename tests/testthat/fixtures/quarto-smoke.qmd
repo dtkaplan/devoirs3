@@ -21,13 +21,16 @@ Please explain your answer.
   correct: true
   feedback: "Fantastic!"
 - "False"
+- "Math: $\\pi$"
 ```
+
+`r devoirs_selection(label = "yaml-choice", question = "Choose one", answers = smokeChoices)()`
 
 ```{r}
 choice <- devoirs_selection(
   label = "choice",
   question = "Choose one",
-  answers = list(list(text = "A", correct = TRUE, feedback = "Correct: $x^2$"))
+  answers = list(list(text = "**A** and $x^2$", correct = TRUE, feedback = "**Correct:** $x^2$"))
 )
 ```
 
@@ -39,7 +42,8 @@ A sentence `r devoirs_TF(correct = TRUE, label = "inline-tf", format = "Wilbur o
 stopifnot(devoirs3:::rolling_hash("abc") == 2946)
 stopifnot(identical(smokeChoices, list(
   list(text = "TRUE", correct = TRUE, feedback = "Fantastic!"),
-  list(text = "False", correct = FALSE, feedback = "Sorry.")
+  list(text = "False", correct = FALSE, feedback = "Sorry."),
+  list(text = "Math: $\\pi$", correct = FALSE, feedback = "Sorry.")
 )))
 cat("DEVOIRS3_SMOKE_OK\nDEVOIRS3_CHOICES_OK")
 ```

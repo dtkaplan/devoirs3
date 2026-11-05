@@ -22,20 +22,14 @@
     return Array.from(widget.querySelectorAll("[data-devoirs3-option]"));
   }
 
-  function normalizeMathDelimiters(text) {
-    return text
-      .replace(/(^|[^\\])\$\$([\s\S]+?)\$\$(?!\$)/g, "$1\\[$2\\]")
-      .replace(/(^|[^\\])\$([^$\n]+?)\$(?!\$)/g, "$1\\($2\\)");
-  }
-
-  function setFeedback(feedback, text) {
+  function setFeedback(feedback, html) {
     const mathJax = window.MathJax;
     if (mathJax && typeof mathJax.typesetClear === "function") {
       mathJax.typesetClear([feedback]);
     }
-    feedback.textContent = normalizeMathDelimiters(text);
-    feedback.hidden = !text;
-    if (!text || !mathJax || typeof mathJax.typesetPromise !== "function") return;
+    feedback.innerHTML = html;
+    feedback.hidden = !html;
+    if (!html || !mathJax || typeof mathJax.typesetPromise !== "function") return;
 
     const typeset = () => mathJax.typesetPromise([feedback]);
     const ready = mathJax.startup && mathJax.startup.promise
@@ -228,11 +222,31 @@
     if (root === document) initializeCollector();
   }
 
+  function initializeMathJax() {
+    const hasFeedbackMath = Array.from(document.querySelectorAll("[data-feedback-html]"))
+      .some((input) => input.dataset.feedbackHtml.includes('class="math inline"'));
+    if (!document.querySelector(".devoirs3-choice .math.inline") && !hasFeedbackMath) return;
+    const alreadyConfigured = window.MathJax || Array.from(document.scripts).some((script) =>
+      /mathjax/i.test(script.src)
+    );
+    if (alreadyConfigured) return;
+
+    window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]] } };
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
   function initializeWhenReady() {
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => initialize(), { once: true });
+      document.addEventListener("DOMContentLoaded", () => {
+        initialize();
+        initializeMathJax();
+      }, { once: true });
     } else {
       initialize();
+      initializeMathJax();
     }
   }
 
@@ -249,10 +263,10 @@
     save(widget);
     const feedback = widget.querySelector("[data-devoirs3-feedback]");
     if (widget.dataset.feedbackEnabled === "true") {
-      const feedbackText = widget.dataset.multiple === "true" && !event.target.checked
+      const feedbackHtml = widget.dataset.multiple === "true" && !event.target.checked
         ? ""
-        : event.target.dataset.feedback || "";
-      setFeedback(feedback, feedbackText);
+        : event.target.dataset.feedbackHtml || "";
+      setFeedback(feedback, feedbackHtml);
     }
   });
 

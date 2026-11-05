@@ -51,6 +51,28 @@
   paste0(prefixes, suffixes)
 }
 
+.devoirs3_markdown_to_html <- function(text) {
+  input <- tempfile(fileext = ".md")
+  output <- tempfile(fileext = ".html")
+  on.exit(unlink(c(input, output)), add = TRUE)
+  writeLines(enc2utf8(text), input, useBytes = TRUE)
+  rmarkdown::pandoc_convert(
+    input,
+    from = "markdown-raw_html+tex_math_dollars",
+    to = "html5",
+    output = output,
+    options = c("--wrap=none", "--mathjax")
+  )
+
+  html <- paste(readLines(output, warn = FALSE), collapse = "\n")
+  paragraph <- regmatches(html, regexec("^<p>([\\s\\S]*)</p>$", html, perl = TRUE))[[1L]]
+  if (!length(paragraph)) {
+    stop("Choice text and feedback must use inline Markdown, not block-level content.", call. = FALSE)
+  }
+  html <- paragraph[[2L]]
+  gsub("\\", "&#92;", html, fixed = TRUE)
+}
+
 #' Create a single- or multiple-choice question
 #'
 #' Returns a render function that emits a labelled radio-button group or
@@ -59,8 +81,9 @@
 #' @param label A non-empty ID unique among question elements in the document.
 #' @param question The human-readable prompt and accessible group name.
 #' @param answers A non-empty list of records with `text`, `correct`, and
-#'   optional `feedback` fields. These can be declared in a
-#'   [devoirs_choices] chunk.
+#'   optional `feedback` fields. Choice text and feedback support inline
+#'   Markdown, including LaTeX math; raw HTML is escaped and block-level
+#'   Markdown is not supported. These can be declared in a [devoirs_choices] chunk.
 #' @param multiple If `TRUE`, allow one or more choices; otherwise allow one.
 #'
 #' @return A function that renders the question in Quarto output.
@@ -100,6 +123,16 @@ devoirs_selection <- function(label, question, answers, multiple = FALSE) {
     answer
   })
 
+  answers <- lapply(answers, function(answer) {
+    answer$html <- .devoirs3_markdown_to_html(answer$text)
+    answer$feedbackHtml <- if (nzchar(answer$feedback)) {
+      .devoirs3_markdown_to_html(answer$feedback)
+    } else {
+      ""
+    }
+    answer
+  })
+
   option_ids <- .devoirs3_option_ids(label, answers)
   for (index in seq_along(answers)) {
     answers[[index]]$optionId <- option_ids[[index]]
@@ -134,9 +167,10 @@ devoirs_selection <- function(label, question, answers, multiple = FALSE) {
           value = option_id,
           `data-devoirs3-option` = "",
           `data-option-id` = option_id,
-          `data-feedback` = answer$feedback
+          `data-feedback` = answer$feedback,
+          `data-feedback-html` = answer$feedbackHtml
         ),
-        htmltools::tags$span(answer$text)
+        htmltools::tags$span(htmltools::HTML(answer$html))
       )
     })
     fieldset_class <- if (inline) {

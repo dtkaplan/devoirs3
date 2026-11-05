@@ -170,7 +170,7 @@ question
 : A human-readable question prompt used as the accessible name for the radio-button or checkbox group. It may match nearby narrative text; it need not be displayed a second time.
 
 answers
-: A non-empty list of choice records. Each record has a  unique-within-question `optionId`, display `text`, logical `correct`, and optional `feedback` string. The author supplies the `text`, `correct`, and `feedback` values. If feedback is omitted, use "Correct!" for correct choices and "Sorry." for incorrect choices. Choice text may contain inline LaTeX delimiters for MathJax rendering; arbitrary HTML is not supported. The `optionId` will be assigned automatically. See the section headed `optionId`.
+: A non-empty list of choice records. Each record has a unique-within-question `optionId`, display `text`, logical `correct`, and optional `feedback` string. The author supplies the `text`, `correct`, and `feedback` values. If feedback is omitted, use "Correct!" for correct choices and "Sorry." for incorrect choices. Choice text supports inline Markdown, including LaTeX math delimiters for MathJax rendering. Raw HTML is escaped and block-level Markdown is not supported. The `optionId` will be assigned automatically. See the section headed `optionId`.
 
 multiple
 : If `FALSE` (default), render a radio-button group and allow exactly one choice. If `TRUE`, render checkboxes and allow one or more choices.
@@ -394,7 +394,7 @@ Q1 <- devoirs_selection(
   - A mapping item has exactly one key: the displayed choice text. Its value is a mapping with optional `correct` and `feedback` fields.
   - `correct` must be a YAML boolean and defaults to `false`. Omitted feedback defaults to `"Correct!"` or `"Sorry."` based on correctness; explicit feedback overrides the default.
   - Unknown metadata fields and malformed items are errors. Explicit feedback, including an empty string, overrides the default.
-- Choice text and feedback are plain text with supported MathJax delimiters, not arbitrary HTML. Quote YAML strings when necessary to ensure they are parsed as strings; use block scalars for multiline text.
+- Choice text supports inline Markdown and LaTeX math; raw HTML is escaped. Feedback remains plain text with supported MathJax delimiters. Quote YAML strings when necessary to ensure they are parsed as strings; use block scalars for multiline text.
 - The engine assigns the resulting list to the variable named by the chunk label in the document’s R evaluation environment, making it available to subsequent chunks.
 - Invalid YAML or invalid choice data must stop rendering with an error that identifies the chunk and, when applicable, the choice number.
 - The chunk label names the R variable only; question labels and stable option IDs continue to follow the `devoirs_selection()` contract.
