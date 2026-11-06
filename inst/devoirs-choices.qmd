@@ -1,0 +1,718 @@
+---
+title: "MCQ to devoirs_choices translation test"
+format: html
+---
+
+## Translation rules used
+
+- Remove the choice prefix (`1.`, `2.`, `a.`, and so on) from the displayed text.
+- Map `[correct]` to `correct: true`; other choices use `correct: false`.
+- Map `[hint: ...]` to `feedback: ...`; omit feedback when no hint is given so the package default applies.
+- Trim surrounding whitespace from choice text and hint feedback.
+- Join a continuation line to the preceding choice with a space.
+- Preserve the source `mcq` label and `inline` setting in the comment above each translated chunk. These are not `devoirs_choices` YAML fields; Phase 2 uses them when creating the `devoirs_selection()` call.
+- The chunk label is a unique, valid R variable name for the parsed choice list.
+
+## Paired examples
+
+```{r}
+#| include: false
+library(devoirs3)
+```
+```{r}
+#| echo: false
+devoirs3::devoirs_start(docID="tuesday", feedback=TRUE, collector=TRUE)
+```
+
+
+2. Which point is at the lowest output value of the function shown?
+
+`r devoirs_set3(choices = c("A", "B", "C", "D", "E"), correct = "B", label = "d05-2-low")`
+
+3. Which point is at the highest output value of the function shown?
+
+`r devoirs_set3(choices = c("A", "B", "C", "D", "E"), correct = "C", label = "d05-3-high")`
+
+
+<!-- Source: Chap-05/maple-shut-pantry.qmd:125 -->
+````qmd
+```
+#| label: msp-7-ese
+#| inline: true
+1. 1
+2. 2
+3. 3
+4. 4 [correct]
+5. 5
+```
+````
+
+<!-- MCQ label: msp-7-ese; inline: true -->
+```{devoirs_choices}
+#| label: choices_msp_7_ese
+- '1':
+    correct: false
+- '2':
+    correct: false
+- '3':
+    correct: false
+- '4':
+    correct: true
+- '5':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="msp-7-ese", 
+      question = "Is this the right thing to do?",
+      answers = choices_msp_7_ese)
+Q4(inline=TRUE)
+```
+
+
+<!-- Source: Chap-04/rhinosaurus-shut-fork.qmd:36 -->
+````qmd
+```
+#| label: rsf-ckse-2
+#| inline: true
+1. 1/C
+2. Dimensionless [correct hint: It's the ratio C/C.]
+3. C 
+4. C/T
+```
+````
+
+<!-- MCQ label: rsf-ckse-2; inline: true -->
+```{devoirs_choices}
+#| label: choices_rsf_ckse_2
+- '1/C':
+    correct: false
+- 'Dimensionless':
+    correct: true
+    feedback: 'It''s the ratio C/C.'
+- 'C':
+    correct: false
+- 'C/T':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="rsf-ckse-2", 
+      question = "Is this the right thing to do?",
+      answers = choices_rsf_ckse_2)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-05/kitten-close-coat.qmd:68 -->
+````qmd
+```
+#| label: kcc-1-kes
+#| inline: true
+1. 25 minutes
+2. 30 minutes
+3. 35 minutes [correct]
+4. 40 minutes
+5. No such time.
+```
+````
+
+<!-- MCQ label: kcc-1-kes; inline: true -->
+```{devoirs_choices}
+#| label: choices_kcc_1_kes
+- '25 minutes':
+    correct: false
+- '30 minutes':
+    correct: false
+- '35 minutes':
+    correct: true
+- '40 minutes':
+    correct: false
+- 'No such time.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="kcc-1-kes", 
+      question = "Is this the right thing to do?",
+      answers = choices_kcc_1_kes)
+Q4(inline=TRUE)
+```
+
+
+<!-- Source: DRILL/Drill-03-quantities.qmd:134 -->
+````qmd
+```
+#| label: d03-fto2
+#| inline: true
+1. 7 deg F[correct]
+2. -7 deg F [hint: The change is always "to minus from." The sign matters!]
+3. 7 [hint: The units are important!]
+4. -7 [hint: The units are important!]
+5. 0
+6. No valid answer.
+```
+````
+
+<!-- MCQ label: d03-fto2; inline: true -->
+```{devoirs_choices}
+#| label: choices_d03_fto2_drill
+- '7 deg F':
+    correct: true
+- '-7 deg F':
+    correct: false
+    feedback: 'The change is always "to minus from." The sign matters!'
+- '7':
+    correct: false
+    feedback: 'The units are important!'
+- '-7':
+    correct: false
+    feedback: 'The units are important!'
+- '0':
+    correct: false
+- 'No valid answer.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="d03-fto2", 
+      question = "Is this the right thing to do?",
+      answers = choices_d03_fto2_drill)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-05/lion-open-canoe.qmd:19 -->
+````qmd
+```
+#| label: loc-38a
+1. The leading digit
+2. The second digit
+3. The third digit [correct hint: That is, the 1 in 0.0132]
+4. A digit in position four or beyond
+5. The number of digits before the decimal point.
+6. The number of digits after the decimal point.
+```
+````
+
+<!-- MCQ label: loc-38a; inline: false -->
+```{devoirs_choices}
+#| label: choices_loc_38a
+- 'The leading digit':
+    correct: false
+- 'The second digit':
+    correct: false
+- 'The third digit':
+    correct: true
+    feedback: 'That is, the 1 in 0.0132'
+- 'A digit in position four or beyond':
+    correct: false
+- 'The number of digits before the decimal point.':
+    correct: false
+- 'The number of digits after the decimal point.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="loc-38a", 
+      question = "Is this the right thing to do?",
+      answers = choices_loc_38a)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-14/cheetah-think-tv.qmd:79 -->
+````qmd
+```
+#| label: ctt-3c-ews3
+#| inline: true
+1. recip()
+2. exp2()
+3. log2() [correct]
+```
+````
+
+<!-- MCQ label: ctt-3c-ews3; inline: true -->
+```{devoirs_choices}
+#| label: choices_ctt_3c_ews3
+- 'recip()':
+    correct: false
+- 'exp2()':
+    correct: false
+- 'log2()':
+    correct: true
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="ctt-3c-ews3", 
+      question = "Is this the right thing to do?",
+      answers = choices_ctt_3c_ews3)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-09/frog-mean-candy.qmd:17 -->
+````qmd
+```
+#| label: d05-output-rep
+1. As the position along the horizontal axis. [hint: No, that's one of the inputs.]
+2. As the position along the vertical axis. [hint: No, that's one of the inputs.]
+3. By the labels along the contour lines. [correct]
+4. The output isn't shown.
+```
+````
+
+<!-- MCQ label: d05-output-rep; inline: false -->
+```{devoirs_choices}
+#| label: choices_d05_output_rep
+- 'As the position along the horizontal axis.':
+    correct: false
+    feedback: 'No, that''s one of the inputs.'
+- 'As the position along the vertical axis.':
+    correct: false
+    feedback: 'No, that''s one of the inputs.'
+- 'By the labels along the contour lines.':
+    correct: true
+- 'The output isn''t shown.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="d05-output-rep", 
+      question = "Is this the right thing to do?",
+      answers = choices_d05_output_rep)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-03/monkey-trim-plate.qmd:17 -->
+````qmd
+```
+#| label: mtp-fto2
+#| inline: true
+1. 7 deg F[correct]
+2. -7 deg F [hint: The change is always "to minus from." The sign matters!]
+3. 7 [hint: The units are important!]
+4. -7 [hint: The units are important!]
+5. 0
+6. No valid answer.
+```
+````
+
+<!-- MCQ label: mtp-fto2; inline: true -->
+```{devoirs_choices}
+#| label: choices_mtp_fto2
+- '7 deg F':
+    correct: true
+- '-7 deg F':
+    correct: false
+    feedback: 'The change is always "to minus from." The sign matters!'
+- '7':
+    correct: false
+    feedback: 'The units are important!'
+- '-7':
+    correct: false
+    feedback: 'The units are important!'
+- '0':
+    correct: false
+- 'No valid answer.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="mtp-fto2", 
+      question = "Is this the right thing to do?",
+      answers = choices_mtp_fto2)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-14/crow-pull-laundry.qmd:17 -->
+````qmd
+```
+#| label: bulb-wattage
+#| inline: true
+1. Energy 
+2. Power [correct]
+3. Electrical voltage
+4. Electrical current
+```
+````
+
+<!-- MCQ label: bulb-wattage; inline: true -->
+```{devoirs_choices}
+#| label: choices_bulb_wattage
+- 'Energy':
+    correct: false
+- 'Power':
+    correct: true
+- 'Electrical voltage':
+    correct: false
+- 'Electrical current':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="bulb-wattage", 
+      question = "Is this the right thing to do?",
+      answers = choices_bulb_wattage)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-10/octopus-iron-kayak.qmd:46 -->
+````qmd
+```
+#| label: D10-OIK-ii
+#| inline: true
+1. Max temperature
+2. Argmin for profit
+3. Argmax for pollution
+4. Argmax for profit [correct]
+```
+````
+
+<!-- MCQ label: D10-OIK-ii; inline: true -->
+```{devoirs_choices}
+#| label: choices_d10_oik_ii
+- 'Max temperature':
+    correct: false
+- 'Argmin for profit':
+    correct: false
+- 'Argmax for pollution':
+    correct: false
+- 'Argmax for profit':
+    correct: true
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="D10-OIK-ii", 
+      question = "Is this the right thing to do?",
+      answers = choices_d10_oik_ii)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-11/walrus-sharpen-boat.qmd:19 -->
+````qmd
+```
+#| label: wsb-1-kes
+1. $3/7 \approx 0.43$ [correct]
+2. $3/(3+7) = 0.3$ [hint: Sorry. That's the absolute probability of A.]
+3. $1/3$
+4. Not enough information given.
+```
+````
+
+<!-- MCQ label: wsb-1-kes; inline: false -->
+```{devoirs_choices}
+#| label: choices_wsb_1_kes
+- '$3/7 \approx 0.43$':
+    correct: true
+- '$3/(3+7) = 0.3$':
+    correct: false
+    feedback: 'Sorry. That''s the absolute probability of A.'
+- '$1/3$':
+    correct: false
+- 'Not enough information given.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="wsb-1-kes", 
+      question = "Is this the right thing to do?",
+      answers = choices_wsb_1_kes)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-01/dingo-iron-rug.qmd:16 -->
+````qmd
+```
+#| label: d01-rooster-link
+1. The heuristic rule that roosters crow at dawn. [correct]
+2. The fact that dawn always occurs when a rooster makes a sound.
+3. A formal proof that dawn has occurred.
+4. A measurement of the time of day.
+```
+````
+
+<!-- MCQ label: d01-rooster-link; inline: false -->
+```{devoirs_choices}
+#| label: choices_d01_rooster_link
+- 'The heuristic rule that roosters crow at dawn.':
+    correct: true
+- 'The fact that dawn always occurs when a rooster makes a sound.':
+    correct: false
+- 'A formal proof that dawn has occurred.':
+    correct: false
+- 'A measurement of the time of day.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="d01-rooster-link", 
+      question = "Is this the right thing to do?",
+      answers = choices_d01_rooster_link)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-03/wolf-sleep-stair.qmd:17 -->
+````qmd
+```
+#| label: d03-flv1
+#| inline: true
+1. 12 inches [hint: Flavors of 1 are always dimensionless. The dimension here is L.]
+2. 1 foot [hint: Flavors of 1 are always dimensionless. The dimension here is L.]
+3. 12 inches / 1 foot [correct]
+```
+````
+
+<!-- MCQ label: d03-flv1; inline: true -->
+```{devoirs_choices}
+#| label: choices_d03_flv1
+- '12 inches':
+    correct: false
+    feedback: 'Flavors of 1 are always dimensionless. The dimension here is L.'
+- '1 foot':
+    correct: false
+    feedback: 'Flavors of 1 are always dimensionless. The dimension here is L.'
+- '12 inches / 1 foot':
+    correct: true
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="d03-flv1", 
+      question = "Is this the right thing to do?",
+      answers = choices_d03_flv1)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-05/kitten-close-coat.qmd:84 -->
+````qmd
+```
+#| label: kcc-2-kes
+#| inline: true
+1. 40 minutes
+2. 60 minutes
+3. 80 minutes 
+4. No such time shown in graph. [correct]
+```
+````
+
+<!-- MCQ label: kcc-2-kes; inline: true -->
+```{devoirs_choices}
+#| label: choices_kcc_2_kes
+- '40 minutes':
+    correct: false
+- '60 minutes':
+    correct: false
+- '80 minutes':
+    correct: false
+- 'No such time shown in graph.':
+    correct: true
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="kcc-2-kes", 
+      question = "Is this the right thing to do?",
+      answers = choices_kcc_2_kes)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-05/boy-hurt-hat.qmd:29 -->
+````qmd
+```
+#| label: bhh-ns-b
+1. Compare the exponents 
+2. Compare the first digit of the mantissa
+3. Compare the second digit of the mantissa [correct]
+4. Compare the third digit of the mantissa.
+```
+````
+
+<!-- MCQ label: bhh-ns-b; inline: false -->
+```{devoirs_choices}
+#| label: choices_bhh_ns_b
+- 'Compare the exponents':
+    correct: false
+- 'Compare the first digit of the mantissa':
+    correct: false
+- 'Compare the second digit of the mantissa':
+    correct: true
+- 'Compare the third digit of the mantissa.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="bhh-ns-b", 
+      question = "Is this the right thing to do?",
+      answers = choices_bhh_ns_b)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-07/toe-dig-pencil.qmd:23 -->
+````qmd
+```
+#| label: tdp-1-lfr
+#| inline: true
+1. hill()
+2. hillside()
+3. osc() [correct]
+4. same()
+```
+````
+
+<!-- MCQ label: tdp-1-lfr; inline: true -->
+```{devoirs_choices}
+#| label: choices_tdp_1_lfr
+- 'hill()':
+    correct: false
+- 'hillside()':
+    correct: false
+- 'osc()':
+    correct: true
+- 'same()':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="tdp-1-lfr", 
+      question = "Is this the right thing to do?",
+      answers = choices_tdp_1_lfr)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-12/pony-bite-suitcase.qmd:18 -->
+````qmd
+```
+#| label: c12-QALY-ratio-1
+#| inline: true
+1. W T / C
+2. C / W [hint: Sorry. Remember that the numerator is the top of the ratio and the denominator is the bottom.]
+3. W / C [correct]
+4. C T^2^ / W
+5. Not enough information.
+```
+````
+
+<!-- MCQ label: c12-QALY-ratio-1; inline: true -->
+```{devoirs_choices}
+#| label: choices_c12_qaly_ratio_1
+- 'W T / C':
+    correct: false
+- 'C / W':
+    correct: false
+    feedback: 'Sorry. Remember that the numerator is the top of the ratio and the denominator is the bottom.'
+- 'W / C':
+    correct: true
+- 'C T^2^ / W':
+    correct: false
+- 'Not enough information.':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="c12-QALY-ratio-1", 
+      question = "Is this the right thing to do?",
+      answers = choices_c12_qaly_ratio_1)
+Q4(inline=TRUE)
+```
+
+<!-- Source: Chap-06/duck-get-futon.qmd:20 -->
+````qmd
+```
+#| label: dgf-10eks
+a. Exactly 1 [hint: Not really. This is a very attractive answer, but there doesn't need to be any angle that will do the job, as with a ping-pong ball.]
+b. Exactly 2 [hint: Might be, but doesn't need to be. How might it be? A very shallow angle might work, with the ball skimming the target. At the same time, a steep angle might send the ball up high in the air, giving enough time for its slight horizontal speed to carry it to the target. ]
+c. Exactly 0 [hint: This might be the case, but it might not. For instance, you are unlikely to be able to send a ping-pong ball 50 meters no matter what the initial speed and launch angle. Even for a heavier ball, the fixed value of `speed` in the slice might be inadequate. But if the speed were high enough, a heavier ball could well be aimed to reach the target.]
+d. It might be any of the above [correct]
+```
+````
+
+<!-- MCQ label: dgf-10eks; inline: false -->
+```{devoirs_choices}
+#| label: choices_dgf_10eks
+- 'Exactly 1':
+    correct: false
+    feedback: 'Not really. This is a very attractive answer, but there doesn''t need to be any angle that will do the job, as with a ping-pong ball.'
+- 'Exactly 2':
+    correct: false
+    feedback: 'Might be, but doesn''t need to be. How might it be? A very shallow angle might work, with the ball skimming the target. At the same time, a steep angle might send the ball up high in the air, giving enough time for its slight horizontal speed to carry it to the target.'
+- 'Exactly 0':
+    correct: false
+    feedback: 'This might be the case, but it might not. For instance, you are unlikely to be able to send a ping-pong ball 50 meters no matter what the initial speed and launch angle. Even for a heavier ball, the fixed value of `speed` in the slice might be inadequate. But if the speed were high enough, a heavier ball could well be aimed to reach the target.'
+- 'It might be any of the above':
+    correct: true
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="dgf-10eks", 
+      question = "Is this the right thing to do?",
+      answers = choices_dgf_10eks)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-14/ant-tell-saw.qmd:25 -->
+````qmd
+```
+#| label: ats-1-swed
+1. Your acceleration is −6 meters per second. This means for every second that passes, you travel 6 fewer meters. [hint: Meters per second does not have the correct dimension to be acceleration. ]
+2. Your acceleration is −6 meters per second squared (m/s^2^). 
+This means for every second that passes, your velocity decreases by 6 meters per second. [correct]
+3. Your acceleration is 6 seconds per meter. This means it takes you 6 seconds to stop for every meter of distance traveled.
+4. Your acceleration is −96 meters. This represents the total distance the car skidded before stopping. [hint: Acceleration does not have dimension L, but rather L T^-2^.]
+```
+````
+
+<!-- MCQ label: ats-1-swed; inline: false -->
+```{devoirs_choices}
+#| label: choices_ats_1_swed
+- 'Your acceleration is −6 meters per second. This means for every second that passes, you travel 6 fewer meters.':
+    correct: false
+    feedback: 'Meters per second does not have the correct dimension to be acceleration.'
+- 'Your acceleration is −6 meters per second squared (m/s^2^). This means for every second that passes, your velocity decreases by 6 meters per second.':
+    correct: true
+- 'Your acceleration is 6 seconds per meter. This means it takes you 6 seconds to stop for every meter of distance traveled.':
+    correct: false
+- 'Your acceleration is −96 meters. This represents the total distance the car skidded before stopping.':
+    correct: false
+    feedback: 'Acceleration does not have dimension L, but rather L T^-2^.'
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="ats-1-swed", 
+      question = "Is this the right thing to do?",
+      answers = choices_ats_1_swed)
+Q4(inline=FALSE)
+```
+
+<!-- Source: Chap-14/dingo-eat-saw.qmd:76 -->
+````qmd
+```
+#| label: des-6-yqe
+#| inline: true
+1. 0.000001
+2. 0.00003
+3. 0.0001  [correct]
+4. 0.003
+5. 0.01
+6. 0.3 
+```
+````
+
+<!-- MCQ label: des-6-yqe; inline: true -->
+```{devoirs_choices}
+#| label: choices_des_6_yqe
+- '0.000001':
+    correct: false
+- '0.00003':
+    correct: false
+- '0.0001':
+    correct: true
+- '0.003':
+    correct: false
+- '0.01':
+    correct: false
+- '0.3':
+    correct: false
+```
+
+```{r echo=FALSE}
+Q4 <- devoirs_selection(label="des-6-yqe", 
+      question = "Is this the right thing to do?",
+      answers = choices_des_6_yqe)
+Q4(inline=TRUE)
+```
+

@@ -12,10 +12,9 @@ devoirs_selection(label, question, answers, multiple = FALSE)
 \item{question}{The human-readable prompt and accessible group name.}
 
 \item{answers}{A non-empty list of records with \code{text}, \code{correct}, and
-optional \code{feedback} fields. These can be declared in a
-\link{devoirs_choices} chunk. Choice text and feedback support inline
-Markdown, including LaTeX math; raw HTML is escaped and block-level Markdown
-is not supported.}
+optional \code{feedback} fields. Choice text and feedback support inline
+Markdown, including LaTeX math; raw HTML is escaped and block-level
+Markdown is not supported. These can be declared in a \link{devoirs_choices} chunk.}
 
 \item{multiple}{If \code{TRUE}, allow one or more choices; otherwise allow one.}
 }
